@@ -1,10 +1,9 @@
-// import { Hero } from "@/components/Hero";
-import AnimatedTextReveal from "@/components/test";
+import { Hero } from "@/components/Hero";
 
 export default function Home() {
   return (
     <div className="min-h-screen">
-      <AnimatedTextReveal />
+      <Hero />
     </div>
   );
 }
