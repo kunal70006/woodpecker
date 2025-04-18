@@ -1,5 +1,5 @@
-/* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
+import { Button } from "./ui/Button";
 
 export const Navbar = () => {
   return (
@@ -10,9 +10,7 @@ export const Navbar = () => {
       <Link href="/about">About</Link>
       <Link href="#">Gallery</Link>
       <Link href="/contact">Contact</Link>
-      <button className="bg-light-brown text-white px-8 py-2 rounded-xs text-lg cursor-pointer transition-all hover:bg-dark-brown">
-        Book reservation
-      </button>
+      <Button>Book reservation</Button>
     </nav>
   );
 };

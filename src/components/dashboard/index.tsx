@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { Product } from "../../utils/types";
 import { useRouter } from "next/router";
+import { Button } from "../ui/Button";
 
 export const Dashboard = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -34,8 +35,13 @@ export const Dashboard = () => {
 
   return (
     <div className="min-h-screen p-8">
-      <h1 className="text-4xl font-bold mb-8">Products</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="flex justify-between items-center mb-8">
+        <h1 className="text-4xl font-bold">Products</h1>
+        <Button onClick={() => router.push("/admin/products/create")}>
+          Create Product
+        </Button>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {products.map((product) => (
           <div
             key={product.id}
