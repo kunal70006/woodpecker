@@ -1,17 +1,7 @@
-import { useAuthStore } from "@/store";
+import { createClient } from "@/utils/supabase/server-props";
 import Head from "next/head";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
-
+import { GetServerSidePropsContext } from "next";
 export default function VerifyEmail() {
-  const { isAuthenticated } = useAuthStore();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      router.push("/admin");
-    }
-  }, [isAuthenticated, router]);
   return (
     <>
       <Head>
@@ -32,4 +22,32 @@ export default function VerifyEmail() {
       </div>
     </>
   );
+}
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const supabase = createClient(context);
+
+  const { data, error } = await supabase.auth.getUser();
+
+  if (error || !data) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+
+  if (data.user) {
+    return {
+      redirect: {
+        destination: "/admin",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
 }

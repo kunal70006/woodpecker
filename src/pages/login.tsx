@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { createClient } from "@/utils/supabase";
+import { createClient } from "@/utils/supabase/component";
 import { useRouter } from "next/router";
-import { useAuthStore } from "@/store/authStore";
 import toast from "react-hot-toast";
 import { getRedirectUrl } from "@/utils";
 
@@ -15,7 +14,6 @@ export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const supabase = createClient();
-  const setUser = useAuthStore((state) => state.setUser);
 
   const validateEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -81,11 +79,6 @@ export default function Login() {
 
         if (error) throw error;
         if (data.user) {
-          setUser({
-            id: data.user.id,
-            email: data.user.email!,
-            name: data.user.user_metadata.name || "",
-          });
           toast.success("Successfully signed in!");
           router.push("/admin");
         }
