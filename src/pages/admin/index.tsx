@@ -1,10 +1,8 @@
 import { Dashboard } from "@/components/dashboard";
 import { createClient } from "@/utils/supabase/server-props";
-import { User } from "@supabase/supabase-js";
 import { GetServerSidePropsContext } from "next";
 
-export default function Admin({ user }: { user: User }) {
-  console.log(user);
+export default function Admin() {
   return (
     <div className="min-h-screen">
       <Dashboard />

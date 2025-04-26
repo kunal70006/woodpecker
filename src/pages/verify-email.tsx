@@ -1,6 +1,5 @@
-import { createClient } from "@/utils/supabase/server-props";
 import Head from "next/head";
-import { GetServerSidePropsContext } from "next";
+
 export default function VerifyEmail() {
   return (
     <>
@@ -22,32 +21,4 @@ export default function VerifyEmail() {
       </div>
     </>
   );
-}
-
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const supabase = createClient(context);
-
-  const { data, error } = await supabase.auth.getUser();
-
-  if (error || !data) {
-    return {
-      redirect: {
-        destination: "/login",
-        permanent: false,
-      },
-    };
-  }
-
-  if (data.user) {
-    return {
-      redirect: {
-        destination: "/admin",
-        permanent: false,
-      },
-    };
-  }
-
-  return {
-    props: {},
-  };
 }

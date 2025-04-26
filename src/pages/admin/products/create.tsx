@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { Button } from "@/components/ui/Button";
+import { Input, TextArea, Select } from "@/components/ui/Input";
 import toast from "react-hot-toast";
 import { createClient } from "@/utils/supabase/server-props";
 import { GetServerSidePropsContext } from "next";
@@ -60,106 +61,67 @@ export default function CreateProduct() {
     }));
   };
 
+  const categoryOptions = [
+    { value: "Coffee", label: "Coffee" },
+    { value: "Pastry", label: "Pastry" },
+    { value: "Food", label: "Food" },
+  ];
+
   return (
     <div className="min-h-screen p-8">
       <div className="max-w-2xl mx-auto">
         <h1 className="text-3xl font-bold mb-8">Create New Product</h1>
         <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <label
-              htmlFor="title"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Title
-            </label>
-            <input
-              type="text"
-              id="title"
-              name="title"
-              required
-              value={formData.title}
-              onChange={handleChange}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[var(--color-dark-brown)] focus:ring-[var(--color-dark-brown)] sm:text-sm"
-            />
-          </div>
+          <Input
+            label="Title"
+            id="title"
+            name="title"
+            required
+            value={formData.title}
+            onChange={handleChange}
+          />
 
-          <div>
-            <label
-              htmlFor="description"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Description
-            </label>
-            <textarea
-              id="description"
-              name="description"
-              required
-              value={formData.description}
-              onChange={handleChange}
-              rows={3}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[var(--color-dark-brown)] focus:ring-[var(--color-dark-brown)] sm:text-sm"
-            />
-          </div>
+          <TextArea
+            label="Description"
+            id="description"
+            name="description"
+            required
+            value={formData.description}
+            onChange={handleChange}
+            rows={3}
+          />
 
-          <div>
-            <label
-              htmlFor="price"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Price
-            </label>
-            <input
-              type="number"
-              id="price"
-              name="price"
-              required
-              min="0"
-              step="0.01"
-              value={formData.price}
-              onChange={handleChange}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[var(--color-dark-brown)] focus:ring-[var(--color-dark-brown)] sm:text-sm"
-            />
-          </div>
+          <Input
+            label="Price"
+            id="price"
+            name="price"
+            type="number"
+            required
+            min="0"
+            step="0.01"
+            value={formData.price}
+            onChange={handleChange}
+          />
 
-          <div>
-            <label
-              htmlFor="image"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Image URL
-            </label>
-            <input
-              type="url"
-              id="image"
-              name="image"
-              required
-              value={formData.image}
-              onChange={handleChange}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[var(--color-dark-brown)] focus:ring-[var(--color-dark-brown)] sm:text-sm"
-            />
-          </div>
+          <Input
+            label="Image URL"
+            id="image"
+            name="image"
+            type="url"
+            required
+            value={formData.image}
+            onChange={handleChange}
+          />
 
-          <div>
-            <label
-              htmlFor="category"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Category
-            </label>
-            <select
-              id="category"
-              name="category"
-              required
-              value={formData.category}
-              onChange={handleChange}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[var(--color-dark-brown)] focus:ring-[var(--color-dark-brown)] sm:text-sm"
-            >
-              <option value="">Select a category</option>
-              <option value="Coffee">Coffee</option>
-              <option value="Pastry">Pastry</option>
-              <option value="Food">Food</option>
-            </select>
-          </div>
+          <Select
+            label="Category"
+            id="category"
+            name="category"
+            required
+            value={formData.category}
+            onChange={handleChange}
+            options={categoryOptions}
+          />
 
           <div className="flex items-center">
             <input
@@ -168,7 +130,7 @@ export default function CreateProduct() {
               name="outOfStock"
               checked={formData.outOfStock}
               onChange={handleChange}
-              className="h-4 w-4 rounded border-gray-300 text-[var(--color-dark-brown)] focus:ring-[var(--color-dark-brown)]"
+              className="h-4 w-4 p-2 rounded border-gray-300 text-[var(--color-dark-brown)] focus:ring-[var(--color-dark-brown)]"
             />
             <label
               htmlFor="outOfStock"
