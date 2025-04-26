@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { Product } from "../../utils/types";
+import { Product } from "@/utils/types";
 
 const mockProducts: Product[] = [
   {

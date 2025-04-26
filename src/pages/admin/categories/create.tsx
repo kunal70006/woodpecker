@@ -1,9 +1,9 @@
 import { createClient } from "@/utils/supabase/server-props";
 import { GetServerSidePropsContext } from "next";
-import { CreateProduct } from "@/components/CreateProduct";
+import { CreateCategory } from "@/components/CreateCategory";
 
-export default function CreateProductPage() {
-  return <CreateProduct />;
+export default function CreateCategoryPage() {
+  return <CreateCategory />;
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
