@@ -3,7 +3,9 @@ import { useRouter } from "next/router";
 import { Button } from "@/components/ui/Button";
 import { Input, TextArea, Select } from "@/components/ui/Input";
 import toast from "react-hot-toast";
+import useSWR from "swr";
 import useSWRMutation from "swr/mutation";
+import { Category } from "@/utils/types";
 
 type ProductFormData = {
   title: string;
@@ -11,7 +13,7 @@ type ProductFormData = {
   price: string;
   image: string;
   category: string;
-  outOfStock: boolean;
+  out_of_stock: boolean;
 };
 
 async function createProduct(url: string, { arg }: { arg: ProductFormData }) {
@@ -41,8 +43,19 @@ export const CreateProduct = () => {
     price: "",
     image: "",
     category: "",
-    outOfStock: false,
+    out_of_stock: false,
   });
+
+  const { data: categories, error: categoriesError } = useSWR(
+    "/api/get/categories",
+    async (url) => {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error("Failed to fetch categories");
+      }
+      return response.json();
+    }
+  );
 
   const { trigger, isMutating } = useSWRMutation(
     "/api/create/product",
@@ -77,16 +90,21 @@ export const CreateProduct = () => {
     }));
   };
 
-  const categoryOptions = [
-    { value: "Coffee", label: "Coffee" },
-    { value: "Pastry", label: "Pastry" },
-    { value: "Food", label: "Food" },
-  ];
+  const categoryOptions =
+    categories?.map((category: Category) => ({
+      value: category.name,
+      label: category.name,
+    })) || [];
 
   return (
     <div className="min-h-screen p-8">
       <div className="max-w-2xl mx-auto">
         <h1 className="text-3xl font-bold mb-8">Create New Product</h1>
+        {categoriesError && (
+          <div className="mb-4 p-4 bg-red-100 text-red-700 rounded">
+            Failed to load categories. Please try again later.
+          </div>
+        )}
         <form onSubmit={handleSubmit} className="space-y-6">
           <Input
             label="Title"
@@ -142,14 +160,14 @@ export const CreateProduct = () => {
           <div className="flex items-center">
             <input
               type="checkbox"
-              id="outOfStock"
-              name="outOfStock"
-              checked={formData.outOfStock}
+              id="out_of_stock"
+              name="out_of_stock"
+              checked={formData.out_of_stock}
               onChange={handleChange}
               className="h-4 w-4 p-2 rounded border-gray-300 text-[var(--color-dark-brown)] focus:ring-[var(--color-dark-brown)]"
             />
             <label
-              htmlFor="outOfStock"
+              htmlFor="out_of_stock"
               className="ml-2 block text-sm text-gray-700"
             >
               Out of Stock
@@ -164,7 +182,17 @@ export const CreateProduct = () => {
             >
               Cancel
             </Button>
-            <Button type="submit" disabled={isMutating}>
+            <Button
+              type="submit"
+              disabled={
+                isMutating ||
+                !formData.title ||
+                !formData.description ||
+                !formData.price ||
+                !formData.image ||
+                !formData.category
+              }
+            >
               {isMutating ? "Creating..." : "Create Product"}
             </Button>
           </div>

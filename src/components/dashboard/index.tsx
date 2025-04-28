@@ -59,7 +59,7 @@ export const Dashboard = () => {
             <p className="text-gray-600 mb-2">{product.description}</p>
             <div className="flex justify-between items-center">
               <span className="text-lg font-bold">${product.price}</span>
-              {product.outOfStock ? (
+              {product.out_of_stock ? (
                 <span className="text-red-500">Out of Stock</span>
               ) : (
                 <span className="text-green-500">In Stock</span>

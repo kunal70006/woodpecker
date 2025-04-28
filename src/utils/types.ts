@@ -5,7 +5,14 @@ export type Product = {
   image: string;
   category: string;
   id: string;
-  outOfStock: boolean;
-  createdAt: Date;
-  updatedAt: Date;
+  out_of_stock: boolean;
+  created_at: Date;
+  updated_at: Date;
+};
+
+export type Category = {
+  id: string;
+  name: string;
+  created_by: string;
+  created_at: Date;
 };

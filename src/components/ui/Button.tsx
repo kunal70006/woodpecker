@@ -8,7 +8,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const baseButtonClasses =
-  "rounded-xs font-medium transition-all cursor-pointer";
+  "rounded-xs font-medium transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed";
 
 const variantStyles = {
   primary: "bg-light-brown text-white hover:bg-dark-brown",
