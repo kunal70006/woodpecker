@@ -4,15 +4,15 @@ export type Product = {
   price: number;
   image: string;
   category: string;
-  id: string;
+  id: number;
   out_of_stock: boolean;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
 };
 
 export type Category = {
-  id: string;
+  id: number;
   name: string;
   created_by: string;
-  created_at: Date;
+  created_at: string;
 };
