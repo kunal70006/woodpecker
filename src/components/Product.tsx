@@ -3,27 +3,96 @@ import { Product as ProductType, Category } from "../utils/types";
 import { Button } from "./ui/Button";
 import { Input, Select, TextArea } from "./ui/Input";
 import { Layout } from "./Layout";
+import useSWR from "swr";
+import useSWRMutation from "swr/mutation";
+import toast from "react-hot-toast";
+import { useRouter } from "next/router";
+import Loader from "./Loader";
 
-interface ProductProps {
-  product: ProductType;
-  categories: Category[];
-  onSave: (updatedProduct: Partial<ProductType>) => void;
+async function updateProduct(
+  url: string,
+  { arg }: { arg: Partial<ProductType> }
+) {
+  const response = await fetch(url, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(arg),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to update product");
+  }
+
+  return response.json();
 }
 
-export const Product: React.FC<ProductProps> = ({
-  product,
-  onSave,
-  categories,
-}) => {
+interface ProductProps {
+  productId?: string;
+}
+
+export const Product: React.FC<ProductProps> = ({ productId }) => {
+  const router = useRouter();
+  const id = productId || router.query.id;
+
+  const { data: product, mutate } = useSWR<ProductType>(
+    id ? `/api/get/products/${id}` : null,
+    async (url: string) => {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error("Failed to fetch product");
+      }
+      return response.json();
+    }
+  );
+
+  const { data: categories } = useSWR<Category[]>(
+    "/api/get/categories",
+    async (url: string) => {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error("Failed to fetch categories");
+      }
+      return response.json();
+    }
+  );
+
+  const { trigger, isMutating } = useSWRMutation(
+    "/api/update/product",
+    updateProduct,
+    {
+      onSuccess: (updatedProduct) => {
+        toast.success("Product updated successfully!");
+        mutate(updatedProduct, false);
+      },
+      onError: (error) => {
+        console.error("Error updating product:", error);
+        toast.error("Failed to update product");
+      },
+    }
+  );
+
   const [isEditing, setIsEditing] = useState(false);
-  const [editedProduct, setEditedProduct] = useState<Partial<ProductType>>({
-    title: product.title,
-    description: product.description,
-    price: product.price,
-    image: product.image,
-    category: product.category,
-    out_of_stock: product.out_of_stock,
-  });
+  const [editedProduct, setEditedProduct] = useState<Partial<ProductType>>({});
+
+  // Initialize editedProduct when product data is loaded
+  React.useEffect(() => {
+    if (product) {
+      setEditedProduct({
+        title: product.title,
+        description: product.description,
+        price: product.price,
+        image: product.image,
+        category: product.category,
+        out_of_stock: product.out_of_stock,
+      });
+    }
+  }, [product]);
+
+  if (!product || isMutating) {
+    return <Loader />;
+  }
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -52,9 +121,11 @@ export const Product: React.FC<ProductProps> = ({
   };
 
   const handleSave = () => {
-    if (onSave) {
-      onSave({ ...editedProduct, updated_at: new Date().toISOString() });
-    }
+    trigger({
+      ...editedProduct,
+      id: product.id,
+      updated_at: new Date().toISOString(),
+    });
     setIsEditing(false);
   };
 

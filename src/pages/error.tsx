@@ -1,3 +1,9 @@
+import { Layout } from "@/components/Layout";
+
 export default function ErrorPage() {
-  return <p>Sorry, something went wrong</p>;
+  return (
+    <Layout>
+      <p>Sorry, something went wrong</p>
+    </Layout>
+  );
 }

@@ -1,11 +1,10 @@
-/* eslint-disable @next/next/no-img-element */
 import { useRouter } from "next/router";
-import { Button } from "../ui/Button";
 import useSWR from "swr";
 import { Product } from "../../utils/types";
 import Loader from "../Loader";
 import { Layout } from "../Layout";
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
+import { enhancedFetcher } from "../../utils";
+import toast from "react-hot-toast";
 
 export const Dashboard = () => {
   const router = useRouter();
@@ -13,7 +12,21 @@ export const Dashboard = () => {
     data: products,
     error,
     isLoading,
-  } = useSWR<Product[]>("/api/get/products", fetcher);
+  } = useSWR<Product[]>("/api/get/products", enhancedFetcher, {
+    // Cache the data for 5 minutes
+    dedupingInterval: 300000,
+    // Keep previous data while revalidating
+    keepPreviousData: true,
+    // Reuse the same data for this time before revalidating
+    revalidateIfStale: false,
+    // Handle loading fallbacks appropriately
+    suspense: false,
+    // Callback function for errors
+    onError: (err) => {
+      console.error("Error loading products:", err);
+      toast.error("Error loading products");
+    },
+  });
 
   if (isLoading) {
     return <Loader />;
@@ -21,9 +34,11 @@ export const Dashboard = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        Failed to load products
-      </div>
+      <Layout>
+        <div className="min-h-screen flex items-center justify-center">
+          Failed to load products
+        </div>
+      </Layout>
     );
   }
 

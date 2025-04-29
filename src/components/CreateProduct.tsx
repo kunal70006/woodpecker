@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import useSWR from "swr";
 import useSWRMutation from "swr/mutation";
 import { Category } from "@/utils/types";
+import { Layout } from "./Layout";
 
 type ProductFormData = {
   title: string;
@@ -97,7 +98,7 @@ export const CreateProduct = () => {
     })) || [];
 
   return (
-    <div className="min-h-screen p-8">
+    <Layout>
       <div className="max-w-2xl mx-auto">
         <h1 className="text-3xl font-bold mb-8">Create New Product</h1>
         {categoriesError && (
@@ -198,6 +199,6 @@ export const CreateProduct = () => {
           </div>
         </form>
       </div>
-    </div>
+    </Layout>
   );
 };

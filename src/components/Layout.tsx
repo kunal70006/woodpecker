@@ -20,10 +20,10 @@ export const Layout = ({ children }: LayoutProps) => {
         )}
         <div className="flex gap-4">
           <Button onClick={() => router.push("/admin/categories/create")}>
-            Create category
+            Categories
           </Button>
           <Button onClick={() => router.push("/admin/products/create")}>
-            Create product
+            Products
           </Button>
         </div>
       </div>

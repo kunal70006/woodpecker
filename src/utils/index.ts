@@ -9,3 +9,26 @@ export const getRedirectUrl = () => {
   url = url.endsWith("/") ? url : `${url}/`;
   return url;
 };
+
+/**
+ * Enhanced fetcher for SWR with built-in error handling
+ * and cache-control headers
+ */
+export const enhancedFetcher = async <T>(url: string): Promise<T> => {
+  const response = await fetch(url, {
+    headers: {
+      "Cache-Control": "max-age=60, stale-while-revalidate=300",
+    },
+  });
+
+  // If the status code is not in the range 200-299,
+  // throw an error with the status text
+  if (!response.ok) {
+    const error = new Error(
+      response.statusText || "An error occurred while fetching the data"
+    );
+    throw error;
+  }
+
+  return response.json();
+};

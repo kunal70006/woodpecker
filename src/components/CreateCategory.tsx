@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import toast from "react-hot-toast";
 import useSWRMutation from "swr/mutation";
-
+import { Layout } from "./Layout";
 async function createCategory(
   url: string,
   { arg }: { arg: { category: string } }
@@ -57,7 +57,7 @@ export const CreateCategory = () => {
   };
 
   return (
-    <div className="min-h-screen p-8">
+    <Layout>
       <div className="max-w-2xl mx-auto">
         <h1 className="text-3xl font-bold mb-8">Create New Category</h1>
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -84,6 +84,6 @@ export const CreateCategory = () => {
           </div>
         </form>
       </div>
-    </div>
+    </Layout>
   );
 };
