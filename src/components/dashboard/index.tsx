@@ -3,7 +3,8 @@ import { useRouter } from "next/router";
 import { Button } from "../ui/Button";
 import useSWR from "swr";
 import { Product } from "../../utils/types";
-
+import Loader from "../Loader";
+import { Layout } from "../Layout";
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export const Dashboard = () => {
@@ -15,11 +16,7 @@ export const Dashboard = () => {
   } = useSWR<Product[]>("/api/get/products", fetcher);
 
   if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        Loading...
-      </div>
-    );
+    return <Loader />;
   }
 
   if (error) {
@@ -31,18 +28,7 @@ export const Dashboard = () => {
   }
 
   return (
-    <div className="min-h-screen p-8">
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-4xl font-bold">Products</h1>
-        <div className="flex gap-4">
-          <Button onClick={() => router.push("/admin/categories/create")}>
-            Create category
-          </Button>
-          <Button onClick={() => router.push("/admin/products/create")}>
-            Create product
-          </Button>
-        </div>
-      </div>
+    <Layout>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {products?.map((product) => (
           <div
@@ -68,6 +54,6 @@ export const Dashboard = () => {
           </div>
         ))}
       </div>
-    </div>
+    </Layout>
   );
 };

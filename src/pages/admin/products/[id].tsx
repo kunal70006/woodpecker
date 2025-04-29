@@ -9,6 +9,7 @@ import useSWR from "swr";
 import useSWRMutation from "swr/mutation";
 import toast from "react-hot-toast";
 import { useRouter } from "next/router";
+import Loader from "@/components/Loader";
 
 async function updateProduct(
   url: string,
@@ -71,7 +72,7 @@ export default function ProductPage() {
   );
 
   if (!product || isMutating) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   return (
