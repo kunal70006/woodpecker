@@ -56,7 +56,6 @@ export default function Login() {
       return;
     }
 
-    // Validate password (only for sign up)
     if (!isLogin) {
       const passwordError = validatePassword(password);
       if (passwordError) {
