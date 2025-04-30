@@ -13,8 +13,6 @@ export default function App({ Component, pageProps }: AppProps) {
       <ErrorBoundary>
         <SWRConfig
           value={{
-            // Refresh cached data every 5 minutes
-            dedupingInterval: 300000,
             // Keep data in cache even when window is not focused
             revalidateOnFocus: false,
             // Retry failed requests 3 times

@@ -29,6 +29,22 @@ async function updateProduct(
   return response.json();
 }
 
+async function deleteProduct(url: string, { arg }: { arg: { id: number } }) {
+  const response = await fetch(url, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(arg),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to delete product");
+  }
+
+  return response.json();
+}
+
 interface ProductProps {
   productId?: string;
 }
@@ -62,8 +78,24 @@ export const Product: React.FC<ProductProps> = ({ productId }) => {
     }
   );
 
+  const { trigger: triggerDelete, isMutating: isDeleting } = useSWRMutation(
+    "/api/delete/product",
+    deleteProduct,
+    {
+      onSuccess: () => {
+        toast.success("Product deleted successfully!");
+        router.push("/admin");
+      },
+      onError: (error) => {
+        console.error("Error deleting product:", error);
+        toast.error("Failed to delete product");
+      },
+    }
+  );
+
   const [isEditing, setIsEditing] = useState(false);
   const [editedProduct, setEditedProduct] = useState<Partial<ProductType>>({});
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
   // Initialize editedProduct when product data is loaded
   React.useEffect(() => {
@@ -79,7 +111,7 @@ export const Product: React.FC<ProductProps> = ({ productId }) => {
     }
   }, [product]);
 
-  if (!product || isMutating) {
+  if (!product || isMutating || isDeleting) {
     return <Loader />;
   }
 
@@ -128,6 +160,12 @@ export const Product: React.FC<ProductProps> = ({ productId }) => {
       out_of_stock: product.out_of_stock,
     });
     setIsEditing(false);
+  };
+
+  const handleDelete = () => {
+    if (product) {
+      triggerDelete({ id: product.id });
+    }
   };
 
   const categoryOptions =
@@ -251,7 +289,24 @@ export const Product: React.FC<ProductProps> = ({ productId }) => {
               </div>
             </div>
 
-            {isEditing ? (
+            {showDeleteConfirm ? (
+              <div className="space-y-4">
+                <p className="text-red-500 font-medium">
+                  Are you sure you want to delete this product?
+                </p>
+                <div className="flex space-x-4">
+                  <Button onClick={handleDelete} variant="danger">
+                    Confirm Delete
+                  </Button>
+                  <Button
+                    onClick={() => setShowDeleteConfirm(false)}
+                    variant="secondary"
+                  >
+                    Cancel
+                  </Button>
+                </div>
+              </div>
+            ) : isEditing ? (
               <div className="flex space-x-4">
                 <Button onClick={handleSave} variant="primary">
                   Save
@@ -261,9 +316,17 @@ export const Product: React.FC<ProductProps> = ({ productId }) => {
                 </Button>
               </div>
             ) : (
-              <Button onClick={() => setIsEditing(true)} variant="primary">
-                Edit
-              </Button>
+              <div className="flex space-x-4">
+                <Button onClick={() => setIsEditing(true)} variant="primary">
+                  Edit
+                </Button>
+                <Button
+                  onClick={() => setShowDeleteConfirm(true)}
+                  variant="danger"
+                >
+                  Delete
+                </Button>
+              </div>
             )}
           </div>
         </div>

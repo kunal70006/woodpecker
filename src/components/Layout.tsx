@@ -1,6 +1,8 @@
 import { ReactNode } from "react";
 import { Button } from "./ui/Button";
 import { useRouter } from "next/router";
+
+import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 interface LayoutProps {
   children: ReactNode;
 }
@@ -14,7 +16,12 @@ export const Layout = ({ children }: LayoutProps) => {
     <div className="min-h-screen p-8">
       <div className="flex justify-between items-center mb-8">
         {showBackButton ? (
-          <Button onClick={() => router.back()}>Back</Button>
+          <div style={{ display: "flex", gap: "10px" }}>
+            <Button variant="secondary" onClick={() => router.back()}>
+              <ArrowLeftIcon className="size-6 text-gray-800" />
+            </Button>
+            <Button onClick={() => router.push("/admin")}>Home</Button>
+          </div>
         ) : (
           <h1 className="text-4xl font-bold">Products</h1>
         )}

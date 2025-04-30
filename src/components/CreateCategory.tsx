@@ -10,21 +10,6 @@ import Loader from "./Loader";
 import { enhancedFetcher } from "@/utils";
 import { Category } from "@/utils/types";
 
-async function deleteCategory(url: string, { arg }: { arg: { id: number } }) {
-  const response = await fetch(url, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(arg),
-  });
-
-  if (!response.ok) {
-    throw new Error("Failed to delete category");
-  }
-
-  return response.json();
-}
 async function createCategory(
   url: string,
   { arg }: { arg: { category: string } }
@@ -52,7 +37,6 @@ export const CreateCategory = () => {
   const {
     data: categories,
     error: categoriesError,
-    mutate,
     isLoading,
   } = useSWR<Category[]>("/api/get/categories", enhancedFetcher);
 
@@ -72,24 +56,6 @@ export const CreateCategory = () => {
     },
   });
 
-  const { trigger: deleteTrigger, isMutating: isDeleting } = useSWRMutation<
-    Category,
-    Error,
-    string,
-    {
-      id: number;
-    }
-  >("/api/delete/category", deleteCategory, {
-    onSuccess: () => {
-      toast.success("Category deleted successfully!");
-      mutate(); // Refresh the categories list
-    },
-    onError: (error: Error) => {
-      console.error("Error deleting category:", error);
-      toast.error("Failed to delete category");
-    },
-  });
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     await trigger({ category });
@@ -101,12 +67,6 @@ export const CreateCategory = () => {
     >
   ) => {
     setCategory(e.target.value);
-  };
-
-  const handleDeleteCategory = async (id: number) => {
-    if (confirm("Are you sure you want to delete this category?")) {
-      await deleteTrigger({ id });
-    }
   };
 
   // Format date to a human readable format
@@ -168,42 +128,26 @@ export const CreateCategory = () => {
                   <tr>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
                       Name
                     </th>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
                       Date Created
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                    >
-                      Actions
                     </th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   {categories?.map((cat) => (
                     <tr key={cat.id} className="hover:bg-gray-50">
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                      <td className="px-6 py-4 whitespace-nowrap text-center text-sm font-medium text-gray-900">
                         {cat.name}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      <td className="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500">
                         {cat.created_at ? formatDate(cat.created_at) : "N/A"}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        <Button
-                          variant="secondary"
-                          size="sm"
-                          onClick={() => handleDeleteCategory(cat.id)}
-                          disabled={isDeleting}
-                        >
-                          Delete
-                        </Button>
                       </td>
                     </tr>
                   ))}

@@ -25,23 +25,24 @@ export default async function handler(
 
     const { id } = req.body;
 
+    // Validate required fields
     if (!id) {
-      return res.status(400).json({ error: "Category ID is required" });
+      return res.status(400).json({ error: "Product ID is required" });
     }
 
-    // Delete the category
-    const { error } = await supabase.from("categories").delete().eq("id", id);
+    // Delete the product
+    const { error } = await supabase.from("products").delete().eq("id", id);
 
     if (error) {
-      console.error("Error deleting category:", error);
-      return res.status(500).json({ error: "Failed to delete category" });
+      console.error("Error deleting product:", error);
+      return res.status(500).json({ error: "Failed to delete product" });
     }
 
     return res
       .status(200)
-      .json({ success: true, message: "Category deleted successfully" });
+      .json({ success: true, message: "Product deleted successfully" });
   } catch (error) {
-    console.error("Error in delete category API:", error);
+    console.error("Error in delete product API:", error);
     return res.status(500).json({ error: "Internal server error" });
   }
 }

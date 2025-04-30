@@ -3,7 +3,7 @@ import { cn } from "@/utils/cn";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
-  variant?: "primary" | "secondary";
+  variant?: "primary" | "secondary" | "danger";
   size?: "sm" | "md" | "lg";
 }
 
@@ -13,6 +13,7 @@ const baseButtonClasses =
 const variantStyles = {
   primary: "bg-light-brown text-white hover:bg-dark-brown",
   secondary: "bg-gray-200 text-gray-800 hover:bg-gray-300",
+  danger: "bg-red-500 text-white hover:bg-red-600",
 };
 
 const sizeStyles = {
