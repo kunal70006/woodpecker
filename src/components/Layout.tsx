@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import { Button } from "./ui/Button";
 import { useRouter } from "next/router";
 
-import { ArrowLeftIcon } from "@heroicons/react/24/outline";
+import { ArrowLeftIcon, HomeIcon } from "@heroicons/react/24/outline";
 interface LayoutProps {
   children: ReactNode;
 }
@@ -20,7 +20,9 @@ export const Layout = ({ children }: LayoutProps) => {
             <Button variant="secondary" onClick={() => router.back()}>
               <ArrowLeftIcon className="size-5 sm:size-6 text-gray-800" />
             </Button>
-            <Button onClick={() => router.push("/admin")}>Home</Button>
+            <Button variant="secondary" onClick={() => router.push("/admin")}>
+              <HomeIcon className="size-5 sm:size-6 text-gray-800" />
+            </Button>
           </div>
         ) : (
           <h1 className="md:block hidden text-3xl sm:text-4xl font-bold">

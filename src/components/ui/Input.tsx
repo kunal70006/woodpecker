@@ -22,7 +22,7 @@ interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
 }
 
 const baseInputClasses =
-  "mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-[var(--color-dark-brown)] focus:ring-[var(--color-dark-brown)] sm:text-sm";
+  "mt-1 p-2 block w-full rounded-xl border-gray-300 shadow-sm focus:border-[var(--color-dark-brown)] focus:ring-[var(--color-dark-brown)] sm:text-sm";
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ label, error, className, containerClassName, ...props }, ref) => {

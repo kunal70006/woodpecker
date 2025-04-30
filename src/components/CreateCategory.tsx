@@ -122,7 +122,7 @@ export const CreateCategory = () => {
           ) : categories && categories.length === 0 ? (
             <p>No categories found</p>
           ) : (
-            <div className="border rounded-md overflow-hidden mt-4 bg-white">
+            <div className="border rounded-xl overflow-hidden mt-4 bg-white">
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>

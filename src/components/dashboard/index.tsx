@@ -50,13 +50,13 @@ export const Dashboard = () => {
             <div
               key={product.id}
               onClick={() => router.push(`/admin/products/${product.id}`)}
-              className="border rounded-lg p-3 sm:p-4 shadow-sm cursor-pointer hover:shadow-md transition-shadow duration-200"
+              className="border rounded-xl p-3 sm:p-4 shadow-sm cursor-pointer hover:shadow-md transition-shadow duration-200"
             >
               <div className="relative pb-[56.25%] mb-3 sm:mb-4">
                 <img
                   src={product.image}
                   alt={product.title}
-                  className="absolute top-0 left-0 w-full h-full object-cover rounded-md"
+                  className="absolute top-0 left-0 w-full h-full object-cover rounded-xl"
                 />
               </div>
               <h2 className="text-lg sm:text-xl font-semibold mb-1 sm:mb-2 line-clamp-1">

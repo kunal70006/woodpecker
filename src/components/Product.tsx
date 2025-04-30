@@ -192,7 +192,7 @@ export const Product: React.FC<ProductProps> = ({ productId }) => {
               <img
                 src={product.image}
                 alt={product.title}
-                className="w-full h-full object-cover rounded-lg"
+                className="w-full h-full object-cover rounded-xl"
               />
             )}
             {isEditing ? (
