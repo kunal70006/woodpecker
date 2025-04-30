@@ -47,11 +47,7 @@ export default function Login() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    // Reset errors
     setErrors({});
-
-    // Validate email
     if (!validateEmail(email)) {
       setErrors((prev) => ({
         ...prev,
