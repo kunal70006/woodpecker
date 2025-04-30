@@ -3,11 +3,7 @@ import { createClient } from "@/utils/supabase/server-props";
 import { GetServerSidePropsContext } from "next";
 
 export default function Admin() {
-  return (
-    <div className="min-h-screen">
-      <Dashboard />
-    </div>
-  );
+  return <Dashboard />;
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {

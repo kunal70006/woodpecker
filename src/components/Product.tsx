@@ -179,7 +179,7 @@ export const Product: React.FC<ProductProps> = ({ productId }) => {
       <div className="max-w-4xl mx-auto p-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Product Image */}
-          <div className="relative aspect-square">
+          <div className="relative md:aspect-square">
             {isEditing ? (
               <Input
                 type="text"
