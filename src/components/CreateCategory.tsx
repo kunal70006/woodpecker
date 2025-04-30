@@ -3,8 +3,28 @@ import { useRouter } from "next/router";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import toast from "react-hot-toast";
+import useSWR from "swr";
 import useSWRMutation from "swr/mutation";
 import { Layout } from "./Layout";
+import Loader from "./Loader";
+import { enhancedFetcher } from "@/utils";
+import { Category } from "@/utils/types";
+
+async function deleteCategory(url: string, { arg }: { arg: { id: number } }) {
+  const response = await fetch(url, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(arg),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to delete category");
+  }
+
+  return response.json();
+}
 async function createCategory(
   url: string,
   { arg }: { arg: { category: string } }
@@ -28,20 +48,47 @@ export const CreateCategory = () => {
   const router = useRouter();
   const [category, setCategory] = useState("");
 
-  const { trigger, isMutating } = useSWRMutation(
-    "/api/create/category",
-    createCategory,
+  // Fetch existing categories using the enhanced fetcher
+  const {
+    data: categories,
+    error: categoriesError,
+    mutate,
+    isLoading,
+  } = useSWR<Category[]>("/api/get/categories", enhancedFetcher);
+
+  const { trigger, isMutating } = useSWRMutation<
+    Category,
+    Error,
+    string,
+    { category: string }
+  >("/api/create/category", createCategory, {
+    onSuccess: () => {
+      toast.success("Category created successfully!");
+      router.push("/admin");
+    },
+    onError: (error) => {
+      console.error("Error creating category:", error);
+      toast.error("Failed to create category");
+    },
+  });
+
+  const { trigger: deleteTrigger, isMutating: isDeleting } = useSWRMutation<
+    Category,
+    Error,
+    string,
     {
-      onSuccess: () => {
-        toast.success("Category created successfully!");
-        router.push("/admin");
-      },
-      onError: (error) => {
-        console.error("Error creating category:", error);
-        toast.error("Failed to create category");
-      },
+      id: number;
     }
-  );
+  >("/api/delete/category", deleteCategory, {
+    onSuccess: () => {
+      toast.success("Category deleted successfully!");
+      mutate(); // Refresh the categories list
+    },
+    onError: (error: Error) => {
+      console.error("Error deleting category:", error);
+      toast.error("Failed to delete category");
+    },
+  });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -55,6 +102,26 @@ export const CreateCategory = () => {
   ) => {
     setCategory(e.target.value);
   };
+
+  const handleDeleteCategory = async (id: number) => {
+    if (confirm("Are you sure you want to delete this category?")) {
+      await deleteTrigger({ id });
+    }
+  };
+
+  // Format date to a human readable format
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
+  };
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <Layout>
@@ -78,11 +145,73 @@ export const CreateCategory = () => {
             >
               Cancel
             </Button>
-            <Button type="submit" disabled={isMutating}>
+            <Button
+              type="submit"
+              disabled={isMutating || category.length === 0}
+            >
               {isMutating ? "Creating..." : "Create Category"}
             </Button>
           </div>
         </form>
+
+        {/* Display existing categories */}
+        <div className="mt-12">
+          <h2 className="text-2xl font-semibold mb-4">Existing Categories</h2>
+          {categoriesError ? (
+            <p className="text-red-500">Failed to load categories</p>
+          ) : categories && categories.length === 0 ? (
+            <p>No categories found</p>
+          ) : (
+            <div className="border rounded-md overflow-hidden mt-4 bg-white">
+              <table className="min-w-full divide-y divide-gray-200">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
+                      Name
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
+                      Date Created
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
+                      Actions
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-200">
+                  {categories?.map((cat) => (
+                    <tr key={cat.id} className="hover:bg-gray-50">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                        {cat.name}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {cat.created_at ? formatDate(cat.created_at) : "N/A"}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <Button
+                          variant="secondary"
+                          size="sm"
+                          onClick={() => handleDeleteCategory(cat.id)}
+                          disabled={isDeleting}
+                        >
+                          Delete
+                        </Button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
       </div>
     </Layout>
   );

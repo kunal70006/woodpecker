@@ -19,7 +19,7 @@ export const Layout = ({ children }: LayoutProps) => {
           <h1 className="text-4xl font-bold">Products</h1>
         )}
         <div className="flex gap-4">
-          <Button onClick={() => router.push("/admin/categories/create")}>
+          <Button onClick={() => router.push("/admin/categories")}>
             Categories
           </Button>
           <Button onClick={() => router.push("/admin/products/create")}>

@@ -15,11 +15,7 @@ export const getRedirectUrl = () => {
  * and cache-control headers
  */
 export const enhancedFetcher = async <T>(url: string): Promise<T> => {
-  const response = await fetch(url, {
-    headers: {
-      "Cache-Control": "max-age=60, stale-while-revalidate=300",
-    },
-  });
+  const response = await fetch(url);
 
   // If the status code is not in the range 200-299,
   // throw an error with the status text

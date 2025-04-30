@@ -7,6 +7,7 @@ import useSWR from "swr";
 import useSWRMutation from "swr/mutation";
 import { Category } from "@/utils/types";
 import { Layout } from "./Layout";
+import { enhancedFetcher } from "@/utils";
 
 type ProductFormData = {
   title: string;
@@ -47,15 +48,9 @@ export const CreateProduct = () => {
     out_of_stock: false,
   });
 
-  const { data: categories, error: categoriesError } = useSWR(
+  const { data: categories, error: categoriesError } = useSWR<Category[]>(
     "/api/get/categories",
-    async (url) => {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error("Failed to fetch categories");
-      }
-      return response.json();
-    }
+    enhancedFetcher
   );
 
   const { trigger, isMutating } = useSWRMutation(

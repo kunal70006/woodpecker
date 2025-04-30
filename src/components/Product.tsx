@@ -8,6 +8,7 @@ import useSWRMutation from "swr/mutation";
 import toast from "react-hot-toast";
 import { useRouter } from "next/router";
 import Loader from "./Loader";
+import { enhancedFetcher } from "@/utils";
 
 async function updateProduct(
   url: string,
@@ -38,24 +39,12 @@ export const Product: React.FC<ProductProps> = ({ productId }) => {
 
   const { data: product, mutate } = useSWR<ProductType>(
     id ? `/api/get/products/${id}` : null,
-    async (url: string) => {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error("Failed to fetch product");
-      }
-      return response.json();
-    }
+    enhancedFetcher
   );
 
   const { data: categories } = useSWR<Category[]>(
     "/api/get/categories",
-    async (url: string) => {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error("Failed to fetch categories");
-      }
-      return response.json();
-    }
+    enhancedFetcher
   );
 
   const { trigger, isMutating } = useSWRMutation(
