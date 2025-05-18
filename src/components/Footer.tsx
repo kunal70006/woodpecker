@@ -35,8 +35,8 @@ export const Footer = () => {
           </p>
           <p className="text-light-brown">
             <span className="font-semibold">Phone:</span>
-            <a target="_blank" href="tel:+919773802477">
-              +919773802477
+            <a target="_blank" href="tel:+919773802473">
+              +919773802473
             </a>
           </p>
         </div>
