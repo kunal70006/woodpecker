@@ -30,7 +30,7 @@ const cards = [
 ];
 const Card = ({ title, description, image, price }: CardProps) => {
   return (
-    <div className="rounded-sm bg-[#F7EDE6] items-center text-center flex flex-col relative shadow-xl">
+    <div className="rounded-sm bg-beige items-center text-center flex flex-col relative shadow-xl">
       <div className="absolute -top-10 left-1/2 -translate-x-1/2">
         <img src={image} alt="" width={250} height={250} />
       </div>
