@@ -1,7 +1,9 @@
 import { Navbar } from "./Navbar";
 import { Button } from "./ui/Button";
+import { useRouter } from "next/router";
 
 export const Hero = () => {
+  const router = useRouter();
   return (
     <div className="flex flex-col">
       <Navbar />
@@ -18,7 +20,10 @@ export const Hero = () => {
             soluta!
           </p>
           <div className="font-sans mt-8">
-            <Button className="rounded-none hover:bg-white hover:text-dark-brown">
+            <Button
+              onClick={() => router.push("/menu")}
+              className="rounded-none hover:bg-white hover:text-dark-brown"
+            >
               Explore more
             </Button>
           </div>

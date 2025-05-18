@@ -1,6 +1,9 @@
 export const AboutUs = () => {
   return (
-    <div className="py-16 min-h-screen flex flex-col gap-y-32 items-center bg-[url('/about_us.jpg')] bg-top-right bg-no-repeat relative">
+    <div
+      id="about"
+      className="py-16 min-h-screen flex flex-col gap-y-32 items-center bg-[url('/about_us.jpg')] bg-top-right bg-no-repeat relative"
+    >
       <div className="absolute inset-0 bg-white/90"></div>
       <div className="flex mt-32 flex-col items-center gap-4 text-center relative z-10">
         <h2 className="text-6xl font-lobster text-dark-brown">About Us</h2>
