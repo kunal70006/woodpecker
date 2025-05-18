@@ -47,7 +47,7 @@ const Card = ({ title, description, image, price }: CardProps) => {
 
 export const OurSpeciality = () => {
   return (
-    <div className="h-screen flex flex-col gap-y-32 items-center bg-[url('/background.png')] bg-no-repeat bg-cover bg-center relative">
+    <div className="min-h-screen flex flex-col gap-y-32 items-center bg-[url('/background.png')] bg-no-repeat bg-cover bg-center relative">
       <div className="absolute inset-0 bg-white/80"></div>
       <div className="flex mt-32 flex-col items-center gap-4 text-center relative z-10">
         <h2 className="text-6xl font-lobster text-dark-brown">
@@ -62,7 +62,7 @@ export const OurSpeciality = () => {
           hic sint itaque dolorum ipsam aliquam commodi!
         </p>
       </div>
-      <div className="flex gap-x-8 relative z-10">
+      <div className="flex gap-x-8 px-16 pb-16 relative z-10">
         {cards.map((card) => (
           <Card key={card.title} {...card} />
         ))}
