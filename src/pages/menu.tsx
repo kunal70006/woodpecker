@@ -1,15 +1,12 @@
-import { Footer } from "@/components/Footer";
 import { Menu } from "@/components/menu";
-import { Navbar } from "@/components/Navbar";
+import { DefaultLayout } from "@/components/Layout";
 import React from "react";
 
 const menu = () => {
   return (
-    <div className="min-h-screen my-8">
-      <Navbar />
+    <DefaultLayout>
       <Menu />
-      <Footer />
-    </div>
+    </DefaultLayout>
   );
 };
 

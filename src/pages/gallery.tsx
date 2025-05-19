@@ -1,14 +1,11 @@
-import { Footer } from "@/components/Footer";
 import { Gallery } from "@/components/Gallery";
-import { Navbar } from "@/components/Navbar";
+import { DefaultLayout } from "@/components/Layout";
 
 const gallery = () => {
   return (
-    <div className="min-h-screen my-8">
-      <Navbar />
+    <DefaultLayout>
       <Gallery />
-      <Footer />
-    </div>
+    </DefaultLayout>
   );
 };
 

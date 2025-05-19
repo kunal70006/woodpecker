@@ -3,7 +3,8 @@ import { Button } from "./ui/Button";
 import { useRouter } from "next/router";
 import { createClient } from "@/utils/supabase/component";
 import toast from "react-hot-toast";
-
+import { Navbar } from "./Navbar";
+import { Footer } from "./Footer";
 import {
   ArrowLeftIcon,
   HomeIcon,
@@ -68,6 +69,16 @@ export const Layout = ({ children }: LayoutProps) => {
         </div>
       </div>
       {children}
+    </div>
+  );
+};
+
+export const DefaultLayout = ({ children }: LayoutProps) => {
+  return (
+    <div className="min-h-screen my-8">
+      <Navbar />
+      {children}
+      <Footer />
     </div>
   );
 };

@@ -13,35 +13,45 @@ const Instagram = (props: React.SVGProps<SVGSVGElement>) => (
 
 export const Footer = () => {
   return (
-    <footer className="flex justify-center mx-16">
-      <div className="flex items-center text-left flex-col w-1/3 gap-y-8">
+    <footer className="flex flex-col md:flex-row justify-center px-4 md:mx-16 py-8 gap-8 md:gap-0">
+      <div className="flex items-center text-left flex-col w-full md:w-1/3 gap-y-4 md:gap-y-8">
         <p className="text-dark-brown font-semibold text-2xl">Hours</p>
-        <p className="text-light-brown">Monday - Sunday: 11:30AM - 9:00PM</p>
+        <p className="text-light-brown text-center md:text-left">
+          Monday - Sunday: 11:30AM - 9:00PM
+        </p>
       </div>
-      <div className="flex items-center text-left flex-col w-1/3 gap-y-8">
+      <div className="flex items-center text-left flex-col w-full md:w-1/3 gap-y-4 md:gap-y-8">
         <p className="text-dark-brown font-semibold text-2xl">Contact</p>
         <div className="flex flex-col gap-y-2">
-          <p className="text-light-brown">
+          <p className="text-light-brown text-center md:text-left">
             <span className="font-semibold">Address:</span>
-            <a target="_blank" href="https://maps.app.goo.gl/zCaCv58RWYjeDKSF6">
+            <a
+              target="_blank"
+              href="https://maps.app.goo.gl/zCaCv58RWYjeDKSF6"
+              className="ml-1"
+            >
               M-13, Kalkaji, New Delhi, India
             </a>
           </p>
-          <p className="text-light-brown">
+          <p className="text-light-brown text-center md:text-left">
             <span className="font-semibold">Email:</span>
-            <a target="_blank" href="mailto:woodpeckerm13@gmail.com">
+            <a
+              target="_blank"
+              href="mailto:woodpeckerm13@gmail.com"
+              className="ml-1"
+            >
               woodpeckerm13@gmail.com
             </a>
           </p>
-          <p className="text-light-brown">
+          <p className="text-light-brown text-center md:text-left">
             <span className="font-semibold">Phone:</span>
-            <a target="_blank" href="tel:+919773802473">
+            <a target="_blank" href="tel:+919773802473" className="ml-1">
               +919773802473
             </a>
           </p>
         </div>
       </div>
-      <div className="flex items-center text-left flex-col w-1/3 gap-y-8">
+      <div className="flex items-center text-left flex-col w-full md:w-1/3 gap-y-4 md:gap-y-8">
         <p className="text-dark-brown font-semibold text-2xl">Follow Us</p>
         <div className="flex gap-x-4">
           <a href="https://www.instagram.com/woodpeckerdiner/" target="_blank">

@@ -13,9 +13,11 @@ const Star = (props: React.SVGProps<SVGSVGElement>) => (
 
 const ReviewCard = ({ name, review }: ReviewCardProps) => {
   return (
-    <div className="bg-beige shadow-lg px-4 pt-4 pb-12 h-[350px] w-[350px] flex flex-col items-center">
+    <div className="bg-beige shadow-lg px-4 pt-4 pb-12 h-auto min-h-[350px] w-full max-w-[350px] flex flex-col items-center">
       <div className="flex flex-col gap-y-4 items-center flex-grow">
-        <p className="text-light-brown text-center">{review}</p>
+        <p className="text-light-brown text-center text-sm md:text-base">
+          {review}
+        </p>
       </div>
       <div className="flex flex-col items-center gap-4 mt-auto">
         <div className="flex">
@@ -23,7 +25,9 @@ const ReviewCard = ({ name, review }: ReviewCardProps) => {
             <Star key={index} />
           ))}
         </div>
-        <h3 className="text-2xl font-lobster text-dark-brown">{name}</h3>
+        <h3 className="text-xl md:text-2xl font-lobster text-dark-brown">
+          {name}
+        </h3>
       </div>
     </div>
   );
@@ -54,13 +58,13 @@ const reviews = [
 
 export const CustomerReviews = () => {
   return (
-    <div className="min-h-screen flex flex-col gap-y-32 items-center py-16 relative">
+    <div className="min-h-screen flex flex-col gap-y-16 md:gap-y-32 items-center py-8 md:py-16 relative">
       <div className="absolute inset-0 bg-white/80"></div>
-      <div className="flex mt-32 flex-col items-center gap-4 text-center relative z-10">
-        <h2 className="text-6xl font-lobster text-dark-brown">
+      <div className="flex mt-16 md:mt-32 flex-col items-center gap-4 text-center relative z-10 px-4">
+        <h2 className="text-4xl md:text-6xl font-lobster text-dark-brown">
           Our Customers Say
         </h2>
-        <p className="text-light-brown w-1/3">
+        <p className="text-light-brown w-full md:w-2/3 lg:w-1/3 text-sm md:text-base">
           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Non eaque
           quos aliquid, quibusdam exercitationem totam suscipit reiciendis
           accusamus similique doloribus eius quam numquam recusandae earum atque
@@ -69,7 +73,7 @@ export const CustomerReviews = () => {
           hic sint itaque dolorum ipsam aliquam commodi!
         </p>
       </div>
-      <div className="flex gap-x-8 relative z-10">
+      <div className="flex flex-col md:flex-row gap-8 relative z-10 px-4">
         {reviews.map((review) => (
           <ReviewCard key={review.name} {...review} />
         ))}

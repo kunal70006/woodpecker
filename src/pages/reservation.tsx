@@ -1,14 +1,11 @@
-import { Footer } from "@/components/Footer";
 import { GetInTouch } from "@/components/GetInTouch";
-import { Navbar } from "@/components/Navbar";
+import { DefaultLayout } from "@/components/Layout";
 
 const reservation = () => {
   return (
-    <div className="min-h-screen my-8">
-      <Navbar />
+    <DefaultLayout>
       <GetInTouch />
-      <Footer />
-    </div>
+    </DefaultLayout>
   );
 };
 
