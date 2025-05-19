@@ -258,7 +258,7 @@ export const Product: React.FC<ProductProps> = ({ productId }) => {
               />
             ) : (
               <div className="text-2xl font-semibold text-gray-900">
-                ${product.price.toFixed(2)}
+                ₹{product.price.toFixed(2)}
               </div>
             )}
 

@@ -1,5 +1,3 @@
-import React from "react";
-
 export const Gallery = () => {
   return (
     <div className="min-h-screen my-16 flex flex-col gap-y-32 items-center bg-[url('/gallery_background.png')] bg-no-repeat bg-cover bg-center relative">
@@ -15,7 +13,7 @@ export const Gallery = () => {
           hic sint itaque dolorum ipsam aliquam commodi!
         </p>
       </div>
-      <div className="flex gap-x-8 px-16 pb-16 relative z-10"></div>
+      <div className="relative z-10">image placeholder</div>
     </div>
   );
 };

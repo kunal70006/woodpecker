@@ -17,7 +17,7 @@ export const AboutUs = () => {
         </p>
       </div>
       <div className="flex gap-8 w-full justify-center relative z-10">
-        <div className="w-1/3 bg-beige shadow-lg p-2 h-[350px]">
+        <div className="w-[40%] 2xl:w-1/3 bg-beige shadow-lg p-2 h-[350px]">
           image collage placeholder
         </div>
         <div className="flex flex-col w-1/4 gap-y-16">
