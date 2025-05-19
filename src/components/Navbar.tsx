@@ -17,9 +17,9 @@ export const Navbar = () => {
   };
 
   return (
-    <nav className="relative">
+    <nav className="sticky top-0 z-50 bg-white">
       {/* Desktop Navigation */}
-      <div className="hidden md:flex items-center justify-center gap-8 text-dark-brown font-medium text-xl bg-transparent">
+      <div className="hidden md:flex items-center justify-center gap-8 text-dark-brown font-medium text-xl py-4">
         <img src="/logo.png" alt="logo" className="w-16" />
         <Link href="/">Home</Link>
         <Link href="/menu">Our menu</Link>
