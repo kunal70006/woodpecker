@@ -31,7 +31,7 @@ const cards = [
 const Card = ({ title, description, image, price }: CardProps) => {
   return (
     <div className="rounded-sm bg-beige items-center text-center flex flex-col relative shadow-xl w-full md:w-auto">
-      <div className="absolute -top-20 md:-top-10 left-1/2 -translate-x-1/2">
+      <div className="absolute -top-20 md:-top-24 left-1/2 -translate-x-1/2">
         <img
           src={image}
           alt={title}
