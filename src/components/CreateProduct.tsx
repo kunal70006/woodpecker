@@ -18,6 +18,34 @@ type ProductFormData = {
   out_of_stock: boolean;
 };
 
+async function uploadImage(file: File) {
+  // Convert file to base64
+  const reader = new FileReader();
+  const base64Promise = new Promise<string>((resolve) => {
+    reader.onload = () => resolve(reader.result as string);
+    reader.readAsDataURL(file);
+  });
+  const base64 = await base64Promise;
+
+  const response = await fetch("/api/create/product-image", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      file: base64,
+      fileName: file.name,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to upload image");
+  }
+
+  const data = await response.json();
+  return data.url;
+}
+
 async function createProduct(url: string, { arg }: { arg: ProductFormData }) {
   const response = await fetch(url, {
     method: "POST",
@@ -47,6 +75,7 @@ export const CreateProduct = () => {
     category: "",
     out_of_stock: false,
   });
+  const [isUploading, setIsUploading] = useState(false);
 
   const { data: categories, error: categoriesError } = useSWR<Category[]>(
     "/api/get/categories",
@@ -84,6 +113,24 @@ export const CreateProduct = () => {
       [name]:
         type === "checkbox" ? (e.target as HTMLInputElement).checked : value,
     }));
+  };
+
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsUploading(true);
+
+    try {
+      const imageUrl = await uploadImage(file);
+      setFormData((prev) => ({ ...prev, image: imageUrl }));
+      toast.success("Image uploaded successfully!");
+    } catch (error) {
+      console.error("Error uploading image:", error);
+      toast.error("Failed to upload image");
+    } finally {
+      setIsUploading(false);
+    }
   };
 
   const categoryOptions =
@@ -133,15 +180,41 @@ export const CreateProduct = () => {
             onChange={handleChange}
           />
 
-          <Input
-            label="Image URL"
-            id="image"
-            name="image"
-            type="url"
-            required
-            value={formData.image}
-            onChange={handleChange}
-          />
+          <div className="space-y-2">
+            <label
+              htmlFor="image"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Product Image
+            </label>
+            <input
+              type="file"
+              id="image"
+              name="image"
+              accept="image/*"
+              onChange={handleImageChange}
+              className="block w-full text-sm text-gray-500
+                file:mr-4 file:py-2 file:px-4
+                file:rounded-md file:border-0
+                file:text-sm file:font-semibold
+                file:bg-[var(--color-light-brown)] file:text-white
+                hover:file:bg-[var(--color-light-brown)]
+                cursor-pointer"
+              required
+            />
+            {isUploading && (
+              <p className="text-sm text-gray-500">Uploading image...</p>
+            )}
+            {formData.image && (
+              <div className="mt-2">
+                <img
+                  src={formData.image}
+                  alt="Preview"
+                  className="h-32 w-32 object-cover rounded-md"
+                />
+              </div>
+            )}
+          </div>
 
           <Select
             label="Category"
@@ -182,6 +255,7 @@ export const CreateProduct = () => {
               type="submit"
               disabled={
                 isMutating ||
+                isUploading ||
                 !formData.title ||
                 !formData.description ||
                 !formData.price ||

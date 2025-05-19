@@ -13,15 +13,6 @@ export const Dashboard = () => {
     error,
     isLoading,
   } = useSWR<Product[]>("/api/get/products", enhancedFetcher, {
-    // Cache the data for 5 minutes
-    dedupingInterval: 300000,
-    // Keep previous data while revalidating
-    keepPreviousData: true,
-    // Reuse the same data for this time before revalidating
-    revalidateIfStale: false,
-    // Handle loading fallbacks appropriately
-    suspense: false,
-    // Callback function for errors
     onError: (err) => {
       console.error("Error loading products:", err);
       toast.error("Error loading products");
@@ -37,6 +28,16 @@ export const Dashboard = () => {
       <Layout>
         <div className="min-h-screen flex items-center justify-center">
           Failed to load products
+        </div>
+      </Layout>
+    );
+  }
+
+  if (products?.length === 0) {
+    return (
+      <Layout>
+        <div className="flex items-center justify-center mt-8 text-2xl font-semibold">
+          No products found
         </div>
       </Layout>
     );

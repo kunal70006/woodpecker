@@ -63,8 +63,8 @@ export const OurSpeciality = () => {
         </p>
       </div>
       <div className="flex gap-x-8 px-16 pb-16 relative z-10">
-        {cards.map((card) => (
-          <Card key={card.title} {...card} />
+        {cards.map((card, index) => (
+          <Card key={index} {...card} />
         ))}
       </div>
     </div>
