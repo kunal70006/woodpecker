@@ -1,16 +1,34 @@
 import { ReactNode } from "react";
 import { Button } from "./ui/Button";
 import { useRouter } from "next/router";
+import { createClient } from "@/utils/supabase/component";
+import toast from "react-hot-toast";
 
-import { ArrowLeftIcon, HomeIcon } from "@heroicons/react/24/outline";
+import {
+  ArrowLeftIcon,
+  HomeIcon,
+  ArrowLeftEndOnRectangleIcon,
+} from "@heroicons/react/24/outline";
 interface LayoutProps {
   children: ReactNode;
 }
 
 export const Layout = ({ children }: LayoutProps) => {
   const router = useRouter();
+  const supabase = createClient();
 
   const showBackButton = router.pathname !== "/admin";
+
+  const handleLogout = async () => {
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+      toast.success("Successfully logged out!");
+      router.push("/login");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Failed to logout");
+    }
+  };
 
   return (
     <div className="min-h-screen p-4 sm:p-8">
@@ -25,9 +43,20 @@ export const Layout = ({ children }: LayoutProps) => {
             </Button>
           </div>
         ) : (
-          <h1 className="md:block hidden text-3xl sm:text-4xl font-bold">
-            Products
-          </h1>
+          <div className="flex gap-2 sm:gap-3 items-center">
+            <Button variant="danger" onClick={handleLogout}>
+              <p className="flex items-center gap-2">
+                <ArrowLeftEndOnRectangleIcon className="size-5 sm:size-6 text-white" />
+                <span>Logout</span>
+              </p>
+            </Button>
+            <Button variant="secondary" onClick={() => router.push("/")}>
+              <p className="flex items-center gap-2">
+                <HomeIcon className="size-5 sm:size-6 text-gray-800" />
+                <span>Cafe</span>
+              </p>
+            </Button>
+          </div>
         )}
         <div className="flex flex-wrap gap-2 sm:gap-4">
           <Button onClick={() => router.push("/admin/categories")}>
