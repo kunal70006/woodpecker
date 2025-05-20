@@ -39,6 +39,10 @@ export const GetInTouch = () => {
           dishes, want to reserve a table, or are interested in our catering
           services, we&apos;re here to help.
         </p>
+        <p className="text-light-brown w-full md:w-1/2">
+          We also regularly host events, workshops and open mic nights. If
+          you&apos;re interested in joining us for an event, please let us know.
+        </p>
       </div>
       <div className="flex flex-col md:flex-row gap-4 w-full max-w-6xl">
         <div className="bg-beige shadow-xl rounded-sm p-4 gap-y-8 w-full">

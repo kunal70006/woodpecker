@@ -65,12 +65,13 @@ export const CustomerReviews = () => {
           Our Customers Say
         </h2>
         <p className="text-light-brown w-full md:w-2/3 lg:w-1/3 text-sm md:text-base">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Non eaque
-          quos aliquid, quibusdam exercitationem totam suscipit reiciendis
-          accusamus similique doloribus eius quam numquam recusandae earum atque
-          alias sed quas culpa asperiores doloremque rerum saepe consequuntur
-          perferendis. Atque dolore voluptatum quibusdam vero, sapiente numquam
-          hic sint itaque dolorum ipsam aliquam commodi!
+          Woodpecker Café wins hearts with its cosy vibe, friendly staff, and
+          seriously delicious dishes think creamy pastas, crispy fries, and
+          fresh pizzas, Messy burgers. Food is fresh, flavours bold, and the
+          atmosphere perfect for chilling with friends or family. They serve
+          fresh food, not frozen food, warm, though a little slower during rush
+          hours. Simply put, it’s a must-visit spot for great food and good
+          times!
         </p>
       </div>
       <div className="flex flex-col md:flex-row gap-8 relative z-10 px-4">

@@ -10,31 +10,20 @@ export const AboutUs = () => {
           About Us
         </h2>
         <p className="text-light-brown w-full md:w-2/3 lg:w-1/3">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Non eaque
-          quos aliquid, quibusdam exercitationem totam suscipit reiciendis
-          accusamus similique doloribus eius quam numquam recusandae earum atque
-          alias sed quas culpa asperiores doloremque rerum saepe consequuntur
-          perferendis. Atque dolore voluptatum quibusdam vero, sapiente numquam
-          hic sint itaque dolorum ipsam aliquam commodi!
+          What began as the dream of a 19-year-old girl with a deep love for
+          good food was suddenly paused by the 2020 lockdown. But dreams have a
+          way of waiting patiently and four years later, she brought her best
+          friend on board to turn that dream into something real. Together, we
+          built everything from scratch every nail, every recipe, every little
+          detail with our own hands, hearts, and more than a few tears.
+          Woodpecker Café isn’t just a place to eat. It’s a space filled with
+          soul, flavour, laughter, and the warmth of a community brought
+          together by food.
         </p>
       </div>
       <div className="flex flex-col md:flex-row gap-8 w-full justify-center relative z-10 px-4 md:px-0">
         <div className="w-full md:w-[40%] 2xl:w-1/3 bg-beige shadow-lg p-2 h-[250px] md:h-[350px]">
           image collage placeholder
-        </div>
-        <div className="flex flex-col w-full md:w-1/4 gap-y-8 md:gap-y-16">
-          <h2 className="text-2xl md:text-4xl font-lobster text-dark-brown">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,
-            quos.
-          </h2>
-          <p className="text-light-brown">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laudantium
-            consectetur quia eum nam nihil porro esse expedita fugiat iste,
-            officiis voluptates, omnis blanditiis vitae perspiciatis alias
-            commodi ipsa consequatur qui molestias exercitationem amet dolorem,
-            voluptatibus rerum. Voluptate sapiente nulla quis facilis fugiat
-            aliquam alias placeat, culpa ex, aspernatur provident praesentium.
-          </p>
         </div>
       </div>
     </div>

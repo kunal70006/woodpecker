@@ -17,9 +17,10 @@ export const Hero = () => {
           One Meal At A Time
         </p>
         <p className="text-base md:text-lg font-sans mt-2 md:mt-4">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem sunt
-          delectus error atque magnam dolores eligendi sed, veniam est dolorem
-          commodi aut sint vel adipisci minus architecto at quis soluta!
+          At Woodpecker, we don’t just cook. We create bold, comforting flavours
+          that stay with you. Every dish is made with care, every cup brewed
+          with love. This isn’t just a café, It’s a place where food tells a
+          story, and every visit feels like coming home.
         </p>
         <div className="font-sans mt-4 md:mt-8">
           <Button

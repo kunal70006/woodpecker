@@ -7,23 +7,23 @@ interface CardProps {
 
 const cards = [
   {
-    title: "Pizza",
+    title: "Spicy Mango",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.",
+      "A refreshing burst of Mexican summer where raw mango tang meets a bold spicy twist, served to you chilled in a glass.",
     image: "/pizza.png",
     price: 100,
   },
   {
-    title: "Pizza",
+    title: "Rice Paper Dumplings",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.",
+      "Crispy, made-to-order delights bursting with flavour, served with two irresistible in house dips.",
     image: "/pizza.png",
     price: 100,
   },
   {
-    title: "Pizza",
+    title: "Mushroom Mania Burger",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.",
+      "A juicy, flavour packed fresh mushroom patty, stacked messy & saucy",
     image: "/pizza.png",
     price: 100,
   },
@@ -60,12 +60,12 @@ export const OurSpeciality = () => {
           Our Speciality
         </h2>
         <p className="text-light-brown w-full md:w-1/3">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Non eaque
-          quos aliquid, quibusdam exercitationem totam suscipit reiciendis
-          accusamus similique doloribus eius quam numquam recusandae earum atque
-          alias sed quas culpa asperiores doloremque rerum saepe consequuntur
-          perferendis. Atque dolore voluptatum quibusdam vero, sapiente numquam
-          hic sint itaque dolorum ipsam aliquam commodi!
+          Every dish at Woodpecker is made fresh with recipes handcrafted by us.
+          No shortcuts, just honest flavours. From crispy rice paper dumplings
+          to spicy Korean noodles, from our signature Mushroom Mania burger to
+          the sweet kick of Strawberry Milk and Mexican Spicy Mango we serve
+          comfort with a twist. It’s food you won’t forget, made just the way{" "}
+          <b>we</b> love it.
         </p>
       </div>
       <div className="flex flex-col md:flex-row gap-y-16 md:gap-y-0 md:gap-x-8 px-4 md:px-16 pb-16 relative z-10">

@@ -59,10 +59,6 @@ export const Menu = () => {
                 <h3 className="text-2xl sm:text-4xl font-semibold text-dark-brown font-lobster text-center">
                   {category}
                 </h3>
-                <p className="text-sm sm:text-base text-light-brown text-center px-4">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Quisquam, quos.
-                </p>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-8 lg:gap-16 justify-items-center">
                 {products.map((product, index) => (
