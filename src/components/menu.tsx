@@ -66,12 +66,21 @@ export const Menu = () => {
                     key={index}
                     className="shadow-2xl border-beige border p-3 sm:p-4 bg-beige flex flex-col gap-2 rounded-md w-full max-w-[300px] items-center"
                   >
-                    <div className="w-[150px] h-[150px] sm:w-[200px] sm:h-[200px]">
+                    <div className="w-[150px] h-[150px] sm:w-[200px] sm:h-[200px] relative">
                       <img
                         src={product.image}
                         alt={product.title}
-                        className="w-full h-full object-contain rounded-sm"
+                        className={`w-full h-full object-contain rounded-sm ${
+                          product.out_of_stock ? "opacity-50" : ""
+                        }`}
                       />
+                      {product.out_of_stock && (
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <span className="bg-red-500 text-white px-4 py-1.5 text-sm font-medium rounded-xl hover:bg-red-600 transition-all">
+                            Out of Stock
+                          </span>
+                        </div>
+                      )}
                     </div>
                     <span className="text-base sm:text-lg font-bold text-dark-brown">
                       ₹{product.price.toFixed(2)}
