@@ -10,21 +10,24 @@ const cards = [
     title: "Spicy Mango",
     description:
       "A refreshing burst of Mexican summer where raw mango tang meets a bold spicy twist, served to you chilled in a glass.",
-    image: "/pizza.png",
-    price: 100,
+    image:
+      "https://lmxacvqincqeswlthypp.supabase.co/storage/v1/object/public/assets/best_sellers/ChatGPT%20Image%20May%2024,%202025,%2001_23_34%20PM.png",
+    price: 140,
   },
   {
     title: "Rice Paper Dumplings",
     description:
       "Crispy, made-to-order delights bursting with flavour, served with two irresistible in house dips.",
-    image: "/pizza.png",
-    price: 100,
+    image:
+      "https://lmxacvqincqeswlthypp.supabase.co/storage/v1/object/public/assets/best_sellers/IMG_2090.jpg",
+    price: 180,
   },
   {
     title: "Mushroom Mania Burger",
     description:
       "A juicy, flavour packed fresh mushroom patty, stacked messy & saucy",
-    image: "/pizza.png",
+    image:
+      "https://lmxacvqincqeswlthypp.supabase.co/storage/v1/object/public/assets/best_sellers/ChatGPT%20Image%20May%2024,%202025,%2001_16_32%20PM.png",
     price: 100,
   },
 ];
@@ -35,7 +38,7 @@ const Card = ({ title, description, image, price }: CardProps) => {
         <img
           src={image}
           alt={title}
-          className="w-[200px] h-[200px] md:w-[250px] md:h-[250px] object-contain"
+          className="w-[200px] h-[200px] object-contain rounded-md"
         />
       </div>
       <div className="flex flex-col gap-4 mt-28 md:mt-32 w-4/5 md:w-2/3 mb-16">
@@ -68,7 +71,7 @@ export const OurSpeciality = () => {
           <b>we</b> love it.
         </p>
       </div>
-      <div className="flex flex-col md:flex-row gap-y-16 md:gap-y-0 md:gap-x-8 px-4 md:px-16 pb-16 relative z-10">
+      <div className="flex flex-col md:flex-row gap-y-32 md:gap-y-0 md:gap-x-8 px-4 md:px-16 pb-16 relative z-10">
         {cards.map((card, index) => (
           <Card key={index} {...card} />
         ))}

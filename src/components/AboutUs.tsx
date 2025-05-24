@@ -1,3 +1,5 @@
+import { Collage } from "./Collage";
+
 export const AboutUs = () => {
   return (
     <div
@@ -22,9 +24,7 @@ export const AboutUs = () => {
         </p>
       </div>
       <div className="flex flex-col md:flex-row gap-8 w-full justify-center relative z-10 px-4 md:px-0">
-        <div className="w-full md:w-[40%] 2xl:w-1/3 bg-beige shadow-lg p-2 h-[250px] md:h-[350px]">
-          image collage placeholder
-        </div>
+        <Collage />
       </div>
     </div>
   );

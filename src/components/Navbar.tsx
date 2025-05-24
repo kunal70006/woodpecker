@@ -22,7 +22,7 @@ export const Navbar = () => {
       <div className="hidden md:flex items-center justify-center gap-8 text-dark-brown font-medium text-xl py-4">
         <img src="/logo.png" alt="logo" className="w-16" />
         <Link href="/">Home</Link>
-        <Link href="/menu">Our menu</Link>
+        {/* <Link href="/menu">Our menu</Link> */}
         <Link href="/#about">About</Link>
         <Link href="/gallery">Gallery</Link>
         <Button
@@ -66,9 +66,9 @@ export const Navbar = () => {
           <Link href="/" onClick={closeDrawer}>
             Home
           </Link>
-          <Link href="/menu" onClick={closeDrawer}>
+          {/* <Link href="/menu" onClick={closeDrawer}>
             Our menu
-          </Link>
+          </Link> */}
           <Link href="/#about" onClick={closeDrawer}>
             About
           </Link>
