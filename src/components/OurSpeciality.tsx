@@ -19,7 +19,7 @@ const cards = [
     description:
       "Crispy, made-to-order delights bursting with flavour, served with two irresistible in house dips.",
     image:
-      "https://lmxacvqincqeswlthypp.supabase.co/storage/v1/object/public/assets/best_sellers/IMG_2090.jpg",
+      "https://lmxacvqincqeswlthypp.supabase.co/storage/v1/object/public/assets/best_sellers/ChatGPT%20Image%20May%2024,%202025,%2002_42_38%20PM.png",
     price: 180,
   },
   {
@@ -33,7 +33,7 @@ const cards = [
 ];
 const Card = ({ title, description, image, price }: CardProps) => {
   return (
-    <div className="rounded-sm bg-beige items-center text-center flex flex-col relative shadow-xl w-full md:w-auto">
+    <div className="rounded-sm bg-beige items-center text-center flex flex-col relative shadow-xl w-full">
       <div className="absolute -top-20 md:-top-24 left-1/2 -translate-x-1/2">
         <img
           src={image}
@@ -41,7 +41,7 @@ const Card = ({ title, description, image, price }: CardProps) => {
           className="w-[200px] h-[200px] object-contain rounded-md"
         />
       </div>
-      <div className="flex flex-col gap-4 mt-28 md:mt-32 w-4/5 md:w-2/3 mb-16">
+      <div className="flex flex-col gap-4 mt-32 w-4/5 md:w-2/3 mb-16">
         <h3 className="text-xl md:text-2xl font-lobster text-dark-brown">
           {title}
         </h3>
